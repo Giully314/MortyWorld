@@ -8,6 +8,7 @@ import javagame.graphics.Assets;
 import javagame.graphics.SpriteLoader;
 import javagame.graphics.SpriteSheet;
 import javagame.input.KeyHandler;
+import javagame.input.MouseHandler;
 import javagame.window.Window;
 import javagame.graphics.camera.GameCamera;
 
@@ -35,6 +36,7 @@ public class GameHandler implements Runnable
 
     //Inputs
     private KeyHandler keyboard_handler;
+    private MouseHandler mouse_handler;
 
     //Camera
     private GameCamera game_camera;
@@ -50,6 +52,7 @@ public class GameHandler implements Runnable
         this.is_running = false;
         
         this.keyboard_handler = new KeyHandler();
+        this.mouse_handler = new MouseHandler(); 
     }
 
     //************************ METODI GET **************************
@@ -78,6 +81,20 @@ public class GameHandler implements Runnable
         return this.game_camera;
     }
 
+    public MouseHandler getMouseHandler()
+    {
+        return this.mouse_handler;
+    }
+
+    public State getGameState()
+    {
+        return this.game_state;
+    }
+
+    public State getMenuState()
+    {
+        return this.menu_state;
+    }
     
     //*********** FUNZIONI PER USO INTERNO DELLA CLASSE. PERMETTONO L'ESECUZIONE DEL LOOP DI GIOCO. */
     private void init()
@@ -85,15 +102,20 @@ public class GameHandler implements Runnable
         this.window = new Window(this.window_title, this.window_width, this.window_height);
         this.window.getWindowFrame().addKeyListener(this.keyboard_handler);
 
+        this.window.getWindowFrame().addMouseListener(this.mouse_handler);
+        this.window.getWindowFrame().addMouseMotionListener(this.mouse_handler);
+        this.window.getScreenCanvas().addMouseListener(this.mouse_handler);
+        this.window.getScreenCanvas().addMouseMotionListener(this.mouse_handler);
+
         Assets.init();
 
         this.handler = new Handler(this);
-
-        this.game_camera = new GameCamera(this, 0.0f, 0.0f);
+        
+        this.game_camera = new GameCamera(this.handler, 0.0f, 0.0f);
         
         this.game_state = new GameState(this.handler);
         this.menu_state = new MenuState(this.handler);
-        State.setState(this.game_state);
+        State.setState(this.menu_state);
     }
 
     

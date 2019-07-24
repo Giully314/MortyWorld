@@ -4,8 +4,16 @@ import java.awt.Graphics;
 
 import javagame.tiles.Tile;
 import javagame.utility.Utility;
+import javagame.entities.EntityHandler;
+import javagame.entities.characters.*;
+import javagame.entities.statics.*;
 import javagame.gamehandler.Handler;
 
+
+/*
+Questa classe si occupa della gestione del mondo di gioco. Carica da file la mappa e le informazioni utili per la generazione.
+(Manca implementazione generazione casuale).
+*/
 public class World
 {
     private Handler handler;
@@ -21,10 +29,28 @@ public class World
     //Accedo ad una tile in base all'id.
     private int[][] tiles;
 
+    //Gestore di entità
+    private EntityHandler entity_handler;
+
     public World(Handler handler_, String world_path)
     {
         this.handler = handler_;
+        this.entity_handler = new EntityHandler(handler_, new Morty(handler_, 100, 100));
+        this.entity_handler.addEntity(new Tree(handler_, 130, 400));
+        this.entity_handler.addEntity(new Tree(handler_, 300, 900));
+        this.entity_handler.addEntity(new Trunk1(handler_, 160, 400));
+        this.entity_handler.addEntity(new Trunk2(handler_, 800, 400));
+        this.entity_handler.addEntity(new Trunk3(handler_, 900, 200));
+        this.entity_handler.addEntity(new Trunk4(handler_, 500, 400));
+        // this.entity_handler.addEntity(new Tree(handler_, 130, 400));
+        // this.entity_handler.addEntity(new Tree(handler_, 130, 400));
+        // this.entity_handler.addEntity(new Tree(handler_, 130, 400));
+        // this.entity_handler.addEntity(new Tree(handler_, 130, 400));
+
         this.loadWorld(world_path);
+
+        this.entity_handler.getMorty().setCoordX(this.spawn_x);
+        this.entity_handler.getMorty().setCoordY(this.spawn_y);
     }
 
     //load della mappa da file
@@ -78,12 +104,16 @@ public class World
         return this.world_height;
     }
 
+    public EntityHandler getEntityHandler()
+    {
+        return this.entity_handler;
+    }
 
     //************** METODI PER UPDATE E RENDERING ****************** */
     
     public void update()
     {
-
+        this.entity_handler.update();
     }
     
 
@@ -104,5 +134,9 @@ public class World
                 (int)(y * Tile.TILE_HEIGHT - this.handler.getGameCamera().getOffsetY()));
             }
         }
+
+
+        //rendering delle entità
+        this.entity_handler.render(graphics);
     }
 }

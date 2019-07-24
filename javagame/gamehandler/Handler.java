@@ -1,7 +1,7 @@
 package javagame.gamehandler;
 
 import javagame.graphics.camera.GameCamera;
-import javagame.input.KeyHandler;
+import javagame.input.*;
 import javagame.worlds.World;
 
 /*
@@ -48,6 +48,11 @@ public class Handler
     public World getWorld()
     {
         return this.world;
+    }
+
+    public MouseHandler getMouseHandler()
+    {
+        return this.game_handler.getMouseHandler();
     }
 
     //***************** METODI SET ******************** */

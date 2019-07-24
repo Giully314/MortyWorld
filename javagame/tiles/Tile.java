@@ -8,6 +8,8 @@ public class Tile
     public static Tile[] tiles;
     public static Tile grass_tile;
     public static Tile stone_tile;
+    public static Tile stone_staircase;
+    public static Tile flowers_tile;
 
     public static final int TILE_WIDTH;
     public static final int TILE_HEIGHT;
@@ -17,9 +19,11 @@ public class Tile
         TILE_WIDTH = 96;
         TILE_HEIGHT = 96;
 
-        tiles = new Tile[256];
+        tiles = new Tile[4];
         grass_tile = new GrassTile(0);
         stone_tile = new StoneTile(1);
+        flowers_tile = new FlowersTile(2);
+        stone_staircase = new StoneStaircaseTile(3);
     }
 
 

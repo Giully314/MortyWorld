@@ -2,26 +2,31 @@ package javagame.entities.characters;
 
 import javagame.entities.Entity;
 import javagame.gamehandler.Handler;
+import javagame.graphics.Assets;
+import javagame.graphics.animation.Animation;
 import javagame.tiles.Tile;
 
 //Characterbase descrive gli oggetti che implementano dei punti vita. (personaggi in questo caso)
 public abstract class CharacterBase extends Entity
 {
-    public static final int DEFAULT_HEALT_POINTS;
     public static final float DEFAULT_SPEED;
     public static final int DEFAULT_CHARACTERBASE_WIDTH;
     public static final int DEFAULT_CHARACTERBASE_HEIGHT;
 
     static 
     {
-        DEFAULT_HEALT_POINTS = 5;
         DEFAULT_SPEED = 4.0f;
         DEFAULT_CHARACTERBASE_WIDTH = 96;
         DEFAULT_CHARACTERBASE_HEIGHT = 96;
     }
 
+
+    //Animazioni
+    protected Animation animation_down;
+    protected Animation animation_up;
+    protected Animation animation_right;
+    protected Animation animation_left;
     
-    protected int health_points;
     protected float speed;
     protected float move_x;
     protected float move_y;
@@ -39,8 +44,15 @@ public abstract class CharacterBase extends Entity
 
     public void move()
     {
-        this.moveX();
-        this.moveY();
+        if (!this.checkEntityCollision(this.move_x, 0.0f))
+        {
+            this.moveX();
+        }
+        
+        if (!this.checkEntityCollision(0.0f, this.move_y))
+        {
+            this.moveY();
+        }
     }
 
     public void moveX()
@@ -124,11 +136,6 @@ public abstract class CharacterBase extends Entity
 
 
     //******************** METODI GET ******************* */
-    public int getHealthPoints()
-    {
-        return this.health_points;
-    }
-
     public float getSpeed()
     {
         return this.speed;
@@ -146,11 +153,6 @@ public abstract class CharacterBase extends Entity
 
 
     //********************* METODI SET ********************* */
-    public void setHealthPoints(int hp)
-    {
-        this.health_points = hp;
-    }
-
     public void setSpeed(float speed_)
     {
         this.speed = speed_;

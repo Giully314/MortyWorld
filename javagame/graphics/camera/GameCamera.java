@@ -1,20 +1,24 @@
 package javagame.graphics.camera;
 
 import javagame.entities.Entity;
-import javagame.gamehandler.GameHandler;
+import javagame.gamehandler.Handler;
+import javagame.tiles.Tile;
 
+/*
+Camera di gioco impostata sul giocatore principale.
+*/
 public class GameCamera
 {
 
-    private GameHandler game_handler;
+    private Handler handler;
 
     private float offset_x;
     private float offset_y;
 
 
-    public GameCamera(GameHandler game_handler_, float offset_x_, float offset_y_)
+    public GameCamera(Handler handler_, float offset_x_, float offset_y_)
     {
-        this.game_handler = game_handler_;
+        this.handler = handler_;
 
         this.offset_x = offset_x_;
         this.offset_y = offset_y_;
@@ -24,8 +28,10 @@ public class GameCamera
     public void centerOnEntity(Entity entity)
     {
         //Diviso 2 perchè il personaggio deve essere centrato e non messo nel bordo superiore.
-        this.offset_x = entity.getCoordX() - this.game_handler.getWidth() / 2 + entity.getEntityWidth() / 2;
-        this.offset_y = entity.getCoordY() - this.game_handler.getHeight() / 2 + entity.getEntityHeight() / 2;
+        this.offset_x = entity.getCoordX() - this.handler.getGameWidth() / 2 + entity.getEntityWidth() / 2;
+        this.offset_y = entity.getCoordY() - this.handler.getGameHeight() / 2 + entity.getEntityHeight() / 2;
+        
+        this.checkEndMap(); 
     }
 
 
@@ -33,6 +39,27 @@ public class GameCamera
     {
         this.offset_x += amount_x;
         this.offset_y += amount_y;
+    }
+
+    public void checkEndMap()
+    {
+        if (this.offset_x < 0)
+        {
+            this.offset_x = 0;
+        }
+        else if (this.offset_x > this.handler.getWorld().getWorldWidth() * Tile.TILE_WIDTH - this.handler.getGameWidth())
+        {
+            this.offset_x = this.handler.getWorld().getWorldWidth() * Tile.TILE_WIDTH - this.handler.getGameWidth();
+        }
+
+        if (this.offset_y < 0)
+        {
+            this.offset_y = 0;
+        }
+        else if (this.offset_y > this.handler.getWorld().getWorldHeight() * Tile.TILE_HEIGHT - this.handler.getGameHeight())
+        {
+            this.offset_y = this.handler.getWorld().getWorldHeight() * Tile.TILE_HEIGHT - this.handler.getGameHeight();
+        }
     }
 
 
@@ -58,5 +85,4 @@ public class GameCamera
     {
         this.offset_y  =offset_y_;
     }
-
 }
