@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javagame.entities.characters.Morty;
 import javagame.graphics.Assets;
-import javagame.gamehandler.GameHandler;
+import javagame.gamehandler.Handler;
 import javagame.tiles.*;
 import javagame.worlds.World;
 
@@ -13,11 +13,12 @@ public class GameState extends State
     private Morty morty;
     private World world_map;
 
-    public GameState(GameHandler game_handler_)
+    public GameState(Handler handler_)
     {
-        super(game_handler_);
-        this.morty = new Morty(game_handler_, 40, 40);
-        this.world_map = new World(game_handler_, "../resource/worlds/world_1.txt");
+        super(handler_);
+        this.world_map = new World(handler_, "../resource/worlds/world_1.txt");
+        this.handler.setWorld(this.world_map);
+        this.morty = new Morty(handler_, 40, 40);
     }
 
 

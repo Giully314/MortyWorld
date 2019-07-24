@@ -39,6 +39,9 @@ public class GameHandler implements Runnable
     //Camera
     private GameCamera game_camera;
 
+    //Handler 
+    private Handler handler;
+
     public GameHandler(String title, int width, int height)
     {
         this.window_title = title;
@@ -65,7 +68,7 @@ public class GameHandler implements Runnable
         return this.window_title;
     }
 
-    public KeyHandler getKeyboardHander()
+    public KeyHandler getKeyboardHandler()
     {
         return this.keyboard_handler;
     }
@@ -84,10 +87,12 @@ public class GameHandler implements Runnable
 
         Assets.init();
 
+        this.handler = new Handler(this);
+
         this.game_camera = new GameCamera(this, 0.0f, 0.0f);
         
-        this.game_state = new GameState(this);
-        this.menu_state = new MenuState(this);
+        this.game_state = new GameState(this.handler);
+        this.menu_state = new MenuState(this.handler);
         State.setState(this.game_state);
     }
 

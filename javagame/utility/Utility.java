@@ -9,7 +9,6 @@ public class Utility
     public static String loadFileAsString(String path)
     {
         StringBuilder builder = new StringBuilder();
-        System.out.println(Utility.class.getResource(path).getPath());
         try (BufferedReader buffer = new BufferedReader(new FileReader(Utility.class.getResource(path).getPath())))
         {
             String line;

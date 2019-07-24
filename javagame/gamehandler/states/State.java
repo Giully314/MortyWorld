@@ -3,16 +3,17 @@ package javagame.gamehandler.states;
 import java.awt.Graphics;
 
 import javagame.gamehandler.GameHandler;
+import javagame.gamehandler.Handler;
 
 public abstract class State
 {   
     private static State current_state;
 
-    protected GameHandler game_handler;
+    protected Handler handler;
 
-    public State(GameHandler game_handler_)
+    public State(Handler handler_)
     {
-        this.game_handler = game_handler_;
+        this.handler = handler_;
     }
 
     static

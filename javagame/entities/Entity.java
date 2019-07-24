@@ -1,13 +1,14 @@
 package javagame.entities;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
-import javagame.gamehandler.GameHandler;
+import javagame.gamehandler.Handler;
 
 //La classe Entity è una classe astratta che rappresenta qualunque cosa che abbia posizione, update e render.
 public abstract class Entity
 {
-    protected GameHandler game_handler;
+    protected Handler handler;
 
     protected float coord_x;
     protected float coord_y;
@@ -15,13 +16,19 @@ public abstract class Entity
     protected int entity_width;
     protected int entity_height;
 
-    public Entity(GameHandler game_handler_, float x, float y, int width, int height)
+    //Rettangolo per il check delle collisioni.
+    protected Rectangle collision_rectangle;
+
+    public Entity(Handler handler_, float x, float y, int width, int height)
     {
-        this.game_handler = game_handler_;
+        this.handler = handler_;
         this.coord_x = x;
         this.coord_y = y;
         this.entity_width = width;
         this.entity_height = height;
+
+        //imporsto di default il rettangolo come la dimensione dell'immagine. Da cambiare i parametri nella classe specifica.
+        this.collision_rectangle = new Rectangle(0, 0, this.entity_width, this.entity_height);
     }
 
     //********************** METODI GET *****************

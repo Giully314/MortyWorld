@@ -4,11 +4,11 @@ import java.awt.Graphics;
 
 import javagame.tiles.Tile;
 import javagame.utility.Utility;
-import javagame.gamehandler.GameHandler;
+import javagame.gamehandler.Handler;
 
 public class World
 {
-    private GameHandler game_handler;
+    private Handler handler;
 
     //Se world_width = 5, world_height = 5, la mappa sarà 5 x 5 tiles.
     private int world_width;
@@ -21,9 +21,9 @@ public class World
     //Accedo ad una tile in base all'id.
     private int[][] tiles;
 
-    public World(GameHandler game_handler_, String world_path)
+    public World(Handler handler_, String world_path)
     {
-        this.game_handler = game_handler_;
+        this.handler = handler_;
         this.loadWorld(world_path);
     }
 
@@ -44,7 +44,7 @@ public class World
             for (int x = 0; x < this.world_width; ++x)
             {
                 //+4 perchè ho già calcolato i primi 4 elementi precedentemente.
-                this.tiles[y][x] = Utility.parseInt(tokens[(x + y * this.world_width) +4]);
+                this.tiles[y][x] = Utility.parseInt(tokens[(x + y * this.world_width) + 4]);
             }
         }
     }
@@ -53,14 +53,29 @@ public class World
     //*********** METODI GET ********************** */
     public Tile getTile(int x, int y)
     {
-        Tile t = Tile.tiles[this.tiles[x][y]];
+        if (x < 0 || x >= this.world_width || y < 0 || y > this.world_height)
+        {
+            return Tile.grass_tile;
+        }
+
+        Tile t = Tile.tiles[this.tiles[y][x]];
 
         if (t == null)
         {
-            return Tile.stone_tile;
+            return Tile.grass_tile;
         }
 
         return t;
+    }
+
+    public int getWorldWidth()
+    {
+        return this.world_width;
+    }
+
+    public int getWorldHeight()
+    {
+        return this.world_height;
     }
 
 
@@ -74,12 +89,19 @@ public class World
 
     public void render(Graphics graphics)
     {
-        for (int y = 0; y < this.world_height; ++y)
+        //Ottimizzazione del rendering della mappa. Faccio il rendering solo della porzione di mappa che vedo.
+        int start_x = Math.max(0, (int)this.handler.getGameCamera().getOffsetX() / Tile.TILE_WIDTH /*+1*/ ); // se si aggiunge un +1 si nota come il rendering venga fatto solo nella parte di mappa visibile.
+        int start_y = Math.max(0, (int)this.handler.getGameCamera().getOffsetY() / Tile.TILE_HEIGHT );
+        int end_x = Math.min(this.world_width, (int)((this.handler.getGameCamera().getOffsetX() + this.handler.getGameWidth()) / Tile.TILE_WIDTH + 1));
+        int end_y = Math.min(this.world_height, (int)((this.handler.getGameCamera().getOffsetY() + this.handler.getGameHeight()) / Tile.TILE_HEIGHT + 1));
+
+
+        for (int y = start_y; y < end_y; ++y)
         {
-            for (int x = 0; x < this.world_width; ++x)
+            for (int x = start_x; x < end_x; ++x)
             {
-                this.getTile(y, x).render(graphics, (int)(x * Tile.TILE_WIDTH - this.game_handler.getGameCamera().getOffsetX()), 
-                (int)(y * Tile.TILE_HEIGHT - this.game_handler.getGameCamera().getOffsetY()));
+                this.getTile(x, y).render(graphics, (int)(x * Tile.TILE_WIDTH - this.handler.getGameCamera().getOffsetX()), 
+                (int)(y * Tile.TILE_HEIGHT - this.handler.getGameCamera().getOffsetY()));
             }
         }
     }

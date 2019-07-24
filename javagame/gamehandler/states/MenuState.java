@@ -2,15 +2,15 @@ package javagame.gamehandler.states;
 
 import java.awt.Graphics;
 
-import javagame.gamehandler.GameHandler; 
+import javagame.gamehandler.Handler; 
 
 
 public class MenuState extends State
 {
     
-    public MenuState(GameHandler game_handler_)
+    public MenuState(Handler handler_)
     {
-        super(game_handler_);
+        super(handler_);
     }
 
 
