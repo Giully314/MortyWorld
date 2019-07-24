@@ -78,7 +78,8 @@ public class World
         {
             for (int x = 0; x < this.world_width; ++x)
             {
-                this.getTile(y, x).render(graphics, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT);
+                this.getTile(y, x).render(graphics, (int)(x * Tile.TILE_WIDTH - this.game_handler.getGameCamera().getOffsetX()), 
+                (int)(y * Tile.TILE_HEIGHT - this.game_handler.getGameCamera().getOffsetY()));
             }
         }
     }

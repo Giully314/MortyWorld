@@ -9,6 +9,7 @@ import javagame.graphics.SpriteLoader;
 import javagame.graphics.SpriteSheet;
 import javagame.input.KeyHandler;
 import javagame.window.Window;
+import javagame.graphics.camera.GameCamera;
 
 public class GameHandler implements Runnable
 {
@@ -34,6 +35,9 @@ public class GameHandler implements Runnable
 
     //Inputs
     private KeyHandler keyboard_handler;
+
+    //Camera
+    private GameCamera game_camera;
 
     public GameHandler(String title, int width, int height)
     {
@@ -65,6 +69,11 @@ public class GameHandler implements Runnable
     {
         return this.keyboard_handler;
     }
+    
+    public GameCamera getGameCamera()
+    {
+        return this.game_camera;
+    }
 
     
     //*********** FUNZIONI PER USO INTERNO DELLA CLASSE. PERMETTONO L'ESECUZIONE DEL LOOP DI GIOCO. */
@@ -74,6 +83,8 @@ public class GameHandler implements Runnable
         this.window.getWindowFrame().addKeyListener(this.keyboard_handler);
 
         Assets.init();
+
+        this.game_camera = new GameCamera(this, 0.0f, 0.0f);
         
         this.game_state = new GameState(this);
         this.menu_state = new MenuState(this);

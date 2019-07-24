@@ -45,12 +45,14 @@ public class Morty extends CharacterBase
     {
         this.getInput();
         this.move();
+        this.game_handler.getGameCamera().centerOnEntity(this);
     }
 
 
     @Override
     public void render(Graphics graphics)
     {
-        graphics.drawImage(Assets.morty, (int)coord_x, (int)coord_y, this.entity_width, this.entity_height, null);
+        graphics.drawImage(Assets.morty, (int)(this.coord_x - this.game_handler.getGameCamera().getOffsetX()), 
+        (int)(this.coord_y - this.game_handler.getGameCamera().getOffsetY()), this.entity_width, this.entity_height, null);
     }
 }

@@ -8,6 +8,7 @@ C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\gamehandler\states\St
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\Assets.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\SpriteLoader.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\SpriteSheet.java
+C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\camera\GameCamera.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\input\KeyHandler.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\main\Main.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\tiles\GrassTile.java
