@@ -2,11 +2,13 @@ package javagame.items;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javagame.gamehandler.Handler;
 
 public class Item
 {
+    //Variabili static che descrivono specifici item.
     public final static int DEFAULT_ITEM_WIDTH;
     public final static int DEFAULT_ITEM_HEIGHT;
     public static Item[] items;
@@ -35,8 +37,8 @@ public class Item
     protected int item_width;
     protected int item_height;
     
-    //item preso.
-    protected int picked_up;
+    //indica che l'item è stato preso(cioè il giocatore è passato sopra l'item).
+    protected boolean picked_up;
 
     protected Handler handler;
 
@@ -50,12 +52,14 @@ public class Item
     protected int coord_y;
     protected int item_count;
 
+    protected Rectangle hitbox;
+
     public Item(int item_width_, int item_height_, Handler handler_, BufferedImage item_texture_, String item_name_, int id_)
     {
         this.item_width = item_width_;
         this.item_height = item_height_;
 
-        this.picked_up = -1;
+        this.picked_up = false;
         
         this.handler = handler_;
 
@@ -64,13 +68,21 @@ public class Item
         this.item_name = item_name_;
 
         this.item_id = id_;
+
+        this.item_count = 1;
+
+        this.hitbox = new Rectangle(this.coord_x, this.coord_y, this.item_width, this.item_height); 
     }
 
     //Metodi per update e rendering dell'item.
 
     public void update()
     {
-
+        if (this.handler.getWorld().getEntityHandler().getMorty().getCollisionBounds(0, 0).intersects(this.hitbox))
+        {   
+            this.picked_up = true;
+            this.handler.getWorld().getEntityHandler().getMorty().getInventory().addItem(this);
+        }
     }
 
     public void render(Graphics graphics)
@@ -82,6 +94,7 @@ public class Item
         this.render(graphics, (int)(this.coord_x - this.handler.getGameCamera().getOffsetX()), 
         (int)(this.coord_y - this.handler.getGameCamera().getOffsetY()));
     }
+
 
     //Questo metodo è usato sia per sistemare la posizione dell'oggetto in base alla camera e sia per posizionarlo nell'inventario.
     public void render(Graphics graphics, int x, int y)
@@ -98,6 +111,7 @@ public class Item
 
         return item;
     }
+
 
     //****************** METODI GET ********************** */
     public int getItemCount()
@@ -135,6 +149,11 @@ public class Item
         return this.item_name;
     }
 
+    public boolean isPickedUp()
+    {
+        return this.picked_up;
+    }
+
     //**************** METODI SET ******************************* */
     public void setCoordX(int x_)
     {
@@ -165,6 +184,8 @@ public class Item
     {
         this.coord_x = x_;
         this.coord_y = y_;
-    }
 
+        this.hitbox.x = x_;
+        this.hitbox.y = y_;
+    }
 }

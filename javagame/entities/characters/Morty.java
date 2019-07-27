@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import javagame.gamehandler.Handler;
 import javagame.graphics.Assets;
 import javagame.graphics.animation.Animation;
+import javagame.inventory.Inventory;
 import javagame.entities.Entity;
 
 public class Morty extends CharacterBase
@@ -17,6 +18,9 @@ public class Morty extends CharacterBase
     private long last_attack_timer;
     private long attack_cooldown;
     private long attack_timer;
+
+    //Inventario.
+    private Inventory inventory;
 
 
     public Morty(Handler handler_, float x, float y)
@@ -38,6 +42,8 @@ public class Morty extends CharacterBase
         this.last_attack_timer = System.currentTimeMillis();
         this.attack_cooldown = 700L;
         this.attack_timer = 0L;
+
+        this.inventory = new Inventory(handler_);
     }
 
     //********* METODI PRIVATE PER UTILITA' INTERNA ********* */
@@ -80,6 +86,8 @@ public class Morty extends CharacterBase
 
         //Check attack
         this.checkAttack();
+
+        this.inventory.update();
     }
 
     /*
@@ -153,7 +161,8 @@ public class Morty extends CharacterBase
     {
         graphics.drawImage(this.getCurrentAnimationFrame(), (int)(this.coord_x - this.handler.getGameCamera().getOffsetX()), 
         (int)(this.coord_y - this.handler.getGameCamera().getOffsetY()), this.entity_width, this.entity_height, null);
-    
+        
+        this.inventory.render(graphics);
         // graphics.setColor(Color.BLUE);
         // graphics.fillRect((int)(coord_x + collision_rectangle.x - handler.getGameCamera().getOffsetX()), 
         //                     (int)(coord_y + collision_rectangle.y - handler.getGameCamera().getOffsetY()), collision_rectangle.width,
@@ -190,4 +199,11 @@ public class Morty extends CharacterBase
     {
         System.out.println("morto");
     } 
+
+
+    //******************* METODI GET ********************** */
+    public Inventory getInventory()
+    {
+        return this.inventory;
+    }
 }

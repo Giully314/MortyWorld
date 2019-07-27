@@ -64,13 +64,6 @@ public class EntityHandler
 
     public void render(Graphics graphics)
     {
-        // Iterator<Entity> it = this.entities.iterator();
-        
-        // while (it.hasNext())
-        // {
-        //     it.next().render(graphics);
-        // }
-
         this.entities.forEach(entity -> entity.render(graphics));
     }
 

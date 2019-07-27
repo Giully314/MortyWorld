@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import javagame.gamehandler.Handler;
 import javagame.graphics.Assets;
+import javagame.items.Item;
 
 public class Trunk2 extends StaticEntity
 {
@@ -21,7 +22,8 @@ public class Trunk2 extends StaticEntity
     @Override
     public void dead()
     {
-        
+        this.handler.getWorld().getItemHandler().addItem(Item.trunk_item_2.createNewItem((int)this.coord_x + this.entity_width / 2, 
+            (int)this.coord_y + this.entity_height / 2));
     }
 
     @Override

@@ -22,7 +22,8 @@ public class Tree extends StaticEntity
     @Override
     public void dead()
     {
-        this.handler.getWorld().getItemHandler().addItem(Item.tree_item.createNewItem(this.coord_x, this.coord_y));
+        this.handler.getWorld().getItemHandler().addItem(Item.tree_item.createNewItem((int)this.coord_x + this.entity_width / 2, 
+        (int)this.coord_y + this.entity_height));
     }
 
     @Override

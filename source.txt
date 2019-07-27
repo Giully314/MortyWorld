@@ -20,6 +20,7 @@ C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\animation\An
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\camera\GameCamera.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\input\KeyHandler.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\input\MouseHandler.java
+C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\inventory\Inventory.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\items\Item.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\items\ItemHandler.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\items\TreeItem.java

@@ -20,7 +20,9 @@ public class ItemHandler
     public void update()
     {
         this.items.forEach(Item::update);
-        this.items.removeIf(item_ -> item_.getItemCount() == item_.picked_up);
+        this.items.removeIf(item_ -> item_.isPickedUp());
+
+        
     }
 
     public void render(Graphics graphics)
