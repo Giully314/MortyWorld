@@ -8,6 +8,7 @@ import javagame.entities.EntityHandler;
 import javagame.entities.characters.*;
 import javagame.entities.statics.*;
 import javagame.gamehandler.Handler;
+import javagame.items.ItemHandler;
 
 
 /*
@@ -32,10 +33,15 @@ public class World
     //Gestore di entità
     private EntityHandler entity_handler;
 
+    //Gestore items
+    private ItemHandler item_handler;
+
     public World(Handler handler_, String world_path)
     {
         this.handler = handler_;
         this.entity_handler = new EntityHandler(handler_, new Morty(handler_, 100, 100));
+        this.item_handler = new ItemHandler(handler_);
+
         this.entity_handler.addEntity(new Tree(handler_, 130, 400));
         this.entity_handler.addEntity(new Tree(handler_, 300, 900));
         this.entity_handler.addEntity(new Trunk1(handler_, 160, 400));
@@ -109,10 +115,21 @@ public class World
         return this.entity_handler;
     }
 
+    public Handler getHandler()
+    {
+        return this.handler;
+    }
+
+    public ItemHandler getItemHandler()
+    {
+        return this.item_handler;
+    }
+
     //************** METODI PER UPDATE E RENDERING ****************** */
     
     public void update()
     {
+        this.item_handler.update();
         this.entity_handler.update();
     }
     
@@ -135,6 +152,8 @@ public class World
             }
         }
 
+        //rendering degli items
+        this.item_handler.render(graphics);
 
         //rendering delle entità
         this.entity_handler.render(graphics);

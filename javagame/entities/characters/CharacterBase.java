@@ -60,7 +60,7 @@ public abstract class CharacterBase extends Entity
         //Mi muovo verso destra.
         if (this.move_x > 0)
         {
-                        //posizione  in pixel, divido per la larghezza della Tile per ottenere la posizione della Tile di cui stiamo facendo il check.
+            //posizione  in pixel, divido per la larghezza della Tile per ottenere la posizione della Tile di cui stiamo facendo il check.
             int temp_x = (int) (this.coord_x + this.move_x + this.collision_rectangle.x + this.collision_rectangle.width) / Tile.TILE_WIDTH;
             int upper_bound_y = (int)(this.coord_y + this.collision_rectangle.y) /Tile.TILE_HEIGHT;
             int lower_bound_y = (int)(this.coord_y + this.collision_rectangle.y + this.collision_rectangle.height) / Tile.TILE_HEIGHT;

@@ -49,7 +49,7 @@ public class EntityHandler
 
         //     if (!e.isActive())
         //     {
-
+        //          it.remove();
         //     }
         // }
         

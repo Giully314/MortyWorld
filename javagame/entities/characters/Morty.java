@@ -13,6 +13,12 @@ import javagame.entities.Entity;
 
 public class Morty extends CharacterBase
 {
+    //Timer, in millisecondi, per la gestione degli attacchi.
+    private long last_attack_timer;
+    private long attack_cooldown;
+    private long attack_timer;
+
+
     public Morty(Handler handler_, float x, float y)
     {
         super(handler_, x, y, CharacterBase.DEFAULT_CHARACTERBASE_WIDTH, CharacterBase.DEFAULT_CHARACTERBASE_HEIGHT);
@@ -22,10 +28,16 @@ public class Morty extends CharacterBase
         this.collision_rectangle.width = 28;
         this.collision_rectangle.height = 29;
 
+        //Creazione delle animazioni.
         this.animation_down = new Animation(250, Assets.morty_down);
         this.animation_up = new Animation(250, Assets.morty_up);
         this.animation_left = new Animation(250, Assets.morty_left);
         this.animation_right = new Animation(250, Assets.morty_right);
+
+        //Setup dei timer per l'attacco.
+        this.last_attack_timer = System.currentTimeMillis();
+        this.attack_cooldown = 700L;
+        this.attack_timer = 0L;
     }
 
     //********* METODI PRIVATE PER UTILITA' INTERNA ********* */
@@ -43,8 +55,7 @@ public class Morty extends CharacterBase
         {
             this.move_y = this.speed;
         }
-
-        if (this.handler.getKeyboardHandler().getRight())
+        else if (this.handler.getKeyboardHandler().getRight())
         {
             this.move_x = this.speed;
         }
@@ -77,6 +88,14 @@ public class Morty extends CharacterBase
     */
     private void checkAttack()
     {
+        this.attack_timer += System.currentTimeMillis() - this.last_attack_timer;
+        this.last_attack_timer = System.currentTimeMillis();
+
+        if (this.attack_timer < this.attack_cooldown)
+        {
+            return;
+        }
+
         var collision_bounds = this.getCollisionBounds(0, 0);
 
         var attack_hitbox = new Rectangle();
@@ -110,8 +129,9 @@ public class Morty extends CharacterBase
             return;
         }
 
-        //Se l'attacco è avvenuto fare il check, altrimenti usciamo dalla funzione con l'else.
+        this.attack_timer = 0L;
 
+        //Se l'attacco è avvenuto fare il check, altrimenti usciamo dalla funzione con l'else.
         for (Entity e : this.handler.getWorld().getEntityHandler().getEntities())
         {
             if (e.equals(this))

@@ -204,8 +204,8 @@ public class GameHandler implements Runnable
         double elapsed_time = 0;
         long now;
         long last_time = System.nanoTime();
-        long timer = 0;
-        int updates = 0;
+        // long timer = 0;
+        // int updates = 0;
 
         while (this.is_running)
         {

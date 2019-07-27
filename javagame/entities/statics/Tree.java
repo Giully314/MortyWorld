@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import javagame.gamehandler.Handler;
 import javagame.graphics.Assets;
+import javagame.items.Item;
 
 public class Tree extends StaticEntity
 {
@@ -21,7 +22,7 @@ public class Tree extends StaticEntity
     @Override
     public void dead()
     {
-        
+        this.handler.getWorld().getItemHandler().addItem(Item.tree_item.createNewItem(this.coord_x, this.coord_y));
     }
 
     @Override
