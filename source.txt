@@ -14,8 +14,10 @@ C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\gamehandler\states\Ga
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\gamehandler\states\MenuState.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\gamehandler\states\State.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\Assets.java
+C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\FontLoader.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\SpriteLoader.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\SpriteSheet.java
+C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\Text.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\animation\Animation.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\graphics\camera\GameCamera.java
 C:\Users\Music\Desktop\Sviluppo\Java\JavaGame\src\javagame\input\KeyHandler.java

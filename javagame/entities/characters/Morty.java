@@ -53,6 +53,12 @@ public class Morty extends CharacterBase
         this.move_x = 0.0f;
         this.move_y = 0.0f;
 
+        //Blocca il giocatore se l'inventario è attivo;
+        if (this.inventory.getIsActive())
+        {
+            return;
+        }
+
         if (this.handler.getKeyboardHandler().getUp())
         {
             this.move_y = -this.speed;
@@ -100,6 +106,12 @@ public class Morty extends CharacterBase
         this.last_attack_timer = System.currentTimeMillis();
 
         if (this.attack_timer < this.attack_cooldown)
+        {
+            return;
+        }
+
+        //Se l'inventario è aperto, il giocatore non può attaccare.
+        if (this.inventory.getIsActive())
         {
             return;
         }
@@ -162,11 +174,16 @@ public class Morty extends CharacterBase
         graphics.drawImage(this.getCurrentAnimationFrame(), (int)(this.coord_x - this.handler.getGameCamera().getOffsetX()), 
         (int)(this.coord_y - this.handler.getGameCamera().getOffsetY()), this.entity_width, this.entity_height, null);
         
-        this.inventory.render(graphics);
         // graphics.setColor(Color.BLUE);
         // graphics.fillRect((int)(coord_x + collision_rectangle.x - handler.getGameCamera().getOffsetX()), 
         //                     (int)(coord_y + collision_rectangle.y - handler.getGameCamera().getOffsetY()), collision_rectangle.width,
         //                     collision_rectangle.height);
+    }
+
+    //In questo modo l'inventario viene renderizzato dopo ogni altro oggetto e si vedrà sovrapposto al gioco!
+    public void postRender(Graphics graphics)
+    {
+        this.inventory.render(graphics);
     }
 
 

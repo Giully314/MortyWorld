@@ -112,6 +112,16 @@ public class Item
         return item;
     }
 
+    //SOLO PER TEST LOGICI
+    public Item createNewItem(int count_)
+    {
+        Item item = new Item(this.item_width, this.item_height, this.handler, this.item_texture, this.item_name, this.item_id);
+        item.setPickedUp(true);
+        item.setItemCount(count_);
+
+        return item;
+    }
+
 
     //****************** METODI GET ********************** */
     public int getItemCount()
@@ -187,5 +197,10 @@ public class Item
 
         this.hitbox.x = x_;
         this.hitbox.y = y_;
+    }
+
+    public void setPickedUp(boolean picked_up_)
+    {
+        this.picked_up = picked_up_;
     }
 }

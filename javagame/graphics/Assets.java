@@ -1,7 +1,7 @@
 package javagame.graphics;
 
 import java.awt.image.BufferedImage;
-
+import java.awt.Font;
 /*
 Classe di supporto per gli sprite. Permette performance maggiori nel rendering poichè non devo ritagliare sempre la tileset.
 */
@@ -37,12 +37,21 @@ public class Assets
     //Menu
     public static BufferedImage[] menu;
 
+    //Inventario.
+    public static BufferedImage inventory;
+
+    //Font.
+    public static Font font_30;
 
     public static void init()
     {
         SpriteSheet spritesheet = new SpriteSheet(SpriteLoader.loadSprite("../resource/TileSet.png"));
         SpriteSheet mortysheet = new SpriteSheet(SpriteLoader.loadSprite("../resource/MortySheet.png"));
         SpriteSheet staticsheet = new SpriteSheet(SpriteLoader.loadSprite("../resource/StaticEntities.png"));
+
+        inventory = SpriteLoader.loadSprite("../resource/inventory.png");
+
+        font_30 = FontLoader.fontLoader("../resource/fonts/Font.ttf", 30);
 
         stone = spritesheet.cut(0, 0, width, height);
         flowers = spritesheet.cut(width, 0, width, height);

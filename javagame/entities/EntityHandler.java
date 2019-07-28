@@ -65,6 +65,7 @@ public class EntityHandler
     public void render(Graphics graphics)
     {
         this.entities.forEach(entity -> entity.render(graphics));
+        this.morty.postRender(graphics);
     }
 
     public void addEntity(Entity e)
